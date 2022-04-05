@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -8,6 +8,8 @@ import Navbar from "../components/Navbar";
 import NewsLetter from "../components/NewsLetter";
 import UpperAnnouncement from "../components/UpperAnnouncement";
 import { large, medium } from "../responsive";
+import { publicRequest } from "../axiosMethod";
+import { useSelector } from "react-redux";
 
 //styled comp
 const MainContainer = styled.div`
@@ -46,73 +48,90 @@ const Container = styled.div`
 `;
 
 const Order = () => {
-  const [loading, setLoading] = useState(false);
-  //   const [order, setOrder] = useState([]);
-  // const user=useSelector(state=>state.user)
-  console.log(setLoading);
-  return (
-    <>
-      <MainContainer>
-        <UpperAnnouncement />
-        <Navbar />
-        <LowerAnnouncement />
-        <TopButtons>
-          <div>
-            <Link to="/products">
-              <Button>Continue To Shop</Button>
-            </Link>
-          </div>
-          <div>
-            <h1>Your Orders</h1>
-          </div>
-        </TopButtons>
-        {loading ? (
-          <div className="d-flex justify-content-center m-5">
-            <Loader type="TailSpin" color="#25283D" height={100} width={100} />
-          </div>
-        ) : (
-          <Container>
-            
-            <table className="table">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">Order Id</th>
-                  <th scope="col">Products</th>
-                  <th scope="col">Shipping Address</th>
-                  <th scope="col">Order Placed</th>
-                </tr>
-              </thead>
-              <tbody>
-               
-                <tr>
-                  <th scope="row">
-                    
-                    12
-                  </th>
-                  <td>
-                    
-                    lipstick
-                  </td>
-                  <td>
-                    coimbatore,India
-                    
-                  </td>
-                  <td>
-                    today
-                    
-                  </td>
-                </tr>
+  const [loading, setLoading] = useState(true);
+  const [order,setOrder]=useState([])
+    const user=useSelector(state=>state.user)
+
+    useEffect(()=>{
+        const getOrder=async()=>{
+            try{
+            const res= await publicRequest.get(`/find/${user.currentUser._id}`,{headers:{
+                token:user.currentUser.token
+            }})
+            console.log(res.data)
+            setOrder(res.data)
+            setLoading(false)
+        }
+        catch(err)
+        {
+            console.log(err)
+            setLoading(false)
+        }
+        }
+        getOrder()
+    },[])
+
+    return (
+        <>
+        <MainContainer>
+            <UpperAnnouncement/>
+            <Navbar/>
+            <LowerAnnouncement/>
+            <TopButtons>
+                <div>
+                   <Link to="/products"> <Button>Continue To Shop</Button></Link>
+                </div>
+                <div>
+                    <h1>Your Orders</h1>
+                </div>
                 
-              </tbody>
-            </table>
-            
-          </Container>
-        )}
-      </MainContainer>
-      <NewsLetter />
-      <Footer />
-    </>
-  );
-};
+            </TopButtons>
+            {loading ?  
+                    <div className="d-flex justify-content-center m-5">
+                    <Loader
+                        type="TailSpin"
+                        color="#25283D"
+                        height={100}
+                        width={100}
+                        
+                    />
+                    </div>
+                  :  
+            <Container>
+                {
+                    order.length>0 ?
+                
+                    <table className="table">
+                        <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">Order Id</th>
+                        <th scope="col">Products</th>
+                        <th scope="col">Shipping Address</th>
+                        <th scope="col">Order Placed</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {order.map(item=>{
+                                return(
+                                    <tr>
+                                    <th scope="row">{item._id}</th>
+                                    <td>{item.products.map((a)=>{return (<><span>{a.productName}</span><br/></>)})}</td>
+                                    <td>{item.address.city},{item.address.country}</td>
+                                    <td>{new Date(item.createdAt).toDateString()}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                       :
+             <><h2  style={{textAlign:"center" ,width:"100%"}}>Your have not yet ordered any items</h2></> }
+           </Container>
+            }
+        </MainContainer>
+        <NewsLetter/>
+        <Footer/>
+        </>
+    )
+}
 
 export default Order;

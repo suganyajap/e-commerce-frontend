@@ -75,7 +75,7 @@ const AdminProductEdit = () => {
   const [info, setInfo] = useState("");
   const params = useParams();
   const user = useSelector((state) => state.user);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   //yup schema
   const signInSchema = YUP.object().shape({

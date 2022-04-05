@@ -60,7 +60,7 @@ const  AdminUserEdit = () => {
   const [info, setInfo] = useState("");
   const params = useParams();
   const Puser = useSelector((state) => state.user);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   //schema
   const signInSchema = YUP.object().shape({
@@ -130,7 +130,7 @@ const  AdminUserEdit = () => {
                         values,
                         {
                           headers: {
-                            token: Puser.currentUser.token,
+                            token: Puser.currentUser.token
                           }
                         }
                       );
@@ -144,7 +144,7 @@ const  AdminUserEdit = () => {
                           setInfo("oops something went wrong!")
                       }
                   }}>
-                  {(handleSubmit)=>{
+                  {()=>{
                       return (
                           
                       <Form>

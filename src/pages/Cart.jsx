@@ -93,7 +93,7 @@ const Cart = () => {
       try {
         console.log(cart.total);
         const res = await publicRequest.post(
-          "/payment",
+          "/checkout/payment",
           {
             tokenId: stripeToken.id,
             amount: 500,
@@ -183,7 +183,7 @@ const Cart = () => {
                       description={`Your Cart Total is $ ${cart.total}`}
                       amount={cart.total * 100}
                       token={onToken}
-                      stripeKey="pk_test_51Jx2WuSG7y1nLb4U9u9WivGzguKP1yPcnIMNrkXBAs7Hi4JiHfVYbETDhDDYUsoU3ZoGh7twA468JIIvhcPgizPd00E0HW7iaS"
+                      stripeKey="pk_test_51KcS0NSFFaTzJeHaFKVvZV4lWObLS8nwZrvT2xcDjFK4b46tazXWXI6YnvakIZcvsc9HwxTTrGzT1RlvbeHkxZgd00lPViDbJQ"
                     >
                       <Button>Checkout</Button>
                     </StripeCheckout>
