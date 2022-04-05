@@ -68,7 +68,7 @@ const AdminProductList = () => {
   const [products, setProducts] = useState([]);
   const user = useSelector((state) => state.user);
   console.log("user in products", user);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const getProducts = async () => {
     try {
       setLoading(true);
@@ -84,15 +84,15 @@ const AdminProductList = () => {
   useEffect(() => {
     getProducts();
   }, []);
-  let deleteId;
-  const deleteProduct = (id) => {
-    deleteId = id;
-  };
+  // let deleteId;
+  // const deleteProduct = (id) => {
+  //   deleteId = id;
+  // };
 
-  const handleDelete = async () => {
+  const handleDelete = async (id) => {
     try {
       console.log("in product delete");
-      const res = await publicRequest.delete(`/product/${deleteId}`, {
+      const res = await publicRequest.delete(`/product/${id}`, {
         headers: {
           token: user.currentUser.token,
         },
@@ -145,7 +145,7 @@ const AdminProductList = () => {
               data-toggle="modal"
               data-target="#deletemodal"
               style={{ color: "red", cursor: "pointer", marginLeft: "15px" }}
-              onClick={() => deleteProduct(params.row._id)}
+              onClick={() => handleDelete(params.row._id)}
             />
           </>
         );
@@ -187,27 +187,7 @@ const AdminProductList = () => {
 
       {!loading && <Footer />}
 
-      <div className="modal  fade" id="deletemodal">
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content">
-            <div className="modal-body">
-              Are you sure, You want to delete product?
-            </div>
-            <div className="modal-footer">
-              <button
-                className="btn btn-danger"
-                data-dismiss="modal"
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-              <button className="btn btn-info" data-dismiss="modal">
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </>
   );
 };

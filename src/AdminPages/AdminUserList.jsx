@@ -114,8 +114,7 @@ export default function AdminUserList() {
               <Edit />
             </Link>
             <DeleteOutline
-              data-toggle="modal"
-              data-target="#deleteUser"
+             
               style={{ color: "red", cursor: "pointer", marginLeft: "15px" }}
               onClick={() => handleDelete(params.row._id)}
             />

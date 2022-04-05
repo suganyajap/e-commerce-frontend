@@ -81,14 +81,15 @@ const  AdminUserEdit = () => {
       setUser(res.data);
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      
       setLoading(false);
+      console.log(err);
     }
   };
 
   useEffect(() => {
     getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
 
   if(!user.username) return[]
@@ -130,7 +131,7 @@ const  AdminUserEdit = () => {
                         {
                           headers: {
                             token: Puser.currentUser.token,
-                          },
+                          }
                         }
                       );
 
