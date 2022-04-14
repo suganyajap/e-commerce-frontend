@@ -12,7 +12,7 @@ import LowerAnnouncement from "../components/LowerAnnouncement";
 import Navbar from "../components/Navbar";
 import NewsLetter from "../components/NewsLetter";
 import UpperAnnouncement from "../components/UpperAnnouncement";
-import { shades } from "../data";
+
 import { large, medium } from "../responsive";
 
 //styled comps
