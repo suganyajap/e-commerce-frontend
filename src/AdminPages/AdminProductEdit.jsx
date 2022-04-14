@@ -86,7 +86,7 @@ const AdminProductEdit = () => {
     description: YUP.string().required("Please Enter description"),
     rating: YUP.number().required("Please Enter rating").min(1).max(5),
     product_type: YUP.string().required("Please Enter Product type"),
-    product_colors: YUP.array(),
+     product_colors: YUP.array(),
   });
 
   useEffect(() => {
@@ -141,7 +141,7 @@ const AdminProductEdit = () => {
                     description: product.description,
                     rating: product.rating,
                     product_type: product.product_type,
-                    product_colors: colors || "",
+                     product_colors: colors || "",
                   }}
                   validationSchema={signInSchema}
                   onSubmit={async (values, { resetForm }) => {

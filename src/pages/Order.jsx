@@ -55,7 +55,7 @@ const Order = () => {
     useEffect(()=>{
         const getOrder=async()=>{
             try{
-            const res= await publicRequest.get(`/find/${user.currentUser._id}`,{headers:{
+            const res= await publicRequest.get(`/order/find/${user.currentUser._id}`,{headers:{
                 token:user.currentUser.token
             }})
             console.log(res.data)

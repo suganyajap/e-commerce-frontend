@@ -12,8 +12,13 @@ import NewsLetter from "../components/NewsLetter";
 import UpperAnnouncement from "../components/UpperAnnouncement";
 import { large, medium } from "../responsive";
 import { useNavigate } from "react-router";
-import { publicRequest } from "../axiosMethod";
+// import { publicRequest } from "../axiosMethod";
+import axios from 'axios'
 import StripeCheckout from "react-stripe-checkout";
+
+
+// const KEY = process.env.REACT_APP_STRIPE;
+
 //styled comp
 const MainContainer = styled.div`
   background-color: whitesmoke;
@@ -92,8 +97,8 @@ const Cart = () => {
     const makeRequest = async () => {
       try {
         console.log(cart.total);
-        const res = await publicRequest.post(
-          "/checkout/payment",
+        const res = await axios.post(
+        " https://my-e-commerce-node.herokuapp.com/checkout/payment",
           {
             tokenId: stripeToken.id,
             amount: 500,
@@ -157,7 +162,7 @@ const Cart = () => {
                 </div>
                 <SummaryLine>
                   <div>SubTotal</div>
-                  <div> ${cart.total}</div>
+                  <div> ${cart.total} </div>
                 </SummaryLine>
                 <SummaryLine>
                   <div>Shipping</div>
@@ -180,14 +185,14 @@ const Cart = () => {
                       image="https://source.unsplash.com/yd3mg93Smn8"
                       billingAddress
                       shippingAddress
-                      description={`Your Cart Total is $ ${cart.total}`}
+                      description={`Your Cart Total is $ ${cart.total} `}
                       amount={cart.total * 100}
                       token={onToken}
                       stripeKey="pk_test_51KcS0NSFFaTzJeHaFKVvZV4lWObLS8nwZrvT2xcDjFK4b46tazXWXI6YnvakIZcvsc9HwxTTrGzT1RlvbeHkxZgd00lPViDbJQ"
                     >
                       <Button>Checkout</Button>
                     </StripeCheckout>
-                  ) : (
+                  ) : 
                     <>
                       <Button
                         onClick={() => {
@@ -197,12 +202,12 @@ const Cart = () => {
                         checkOut
                       </Button>
                     </>
-                  )}
+                  }
                 </div>
 
                 <div className="text-danger my-5 ">
                   <p className="text-center bg-info p-3 text-light">
-                    <b>IMPORTANT *</b>
+                    <b>IMPORTANT Note:</b>
                   </p>
                   <p>
                     <b>Please use the below credentials to checkout</b>
@@ -211,7 +216,7 @@ const Cart = () => {
                     card number: <b>4242424242424242</b>
                   </p>
                   <p>
-                    Expiry:<b> 02/22 or any future dates </b>
+                    Expiry:<b> 02/30 or any future dates </b>
                   </p>
                   <p>
                     CVV: <b>222 or any three digit number</b>

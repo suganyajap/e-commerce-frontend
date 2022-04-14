@@ -1,5 +1,5 @@
 // import "./App.css";
-
+import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdminHome from "./AdminPages/AdminHome";
 import AdminProductEdit from "./AdminPages/AdminProductEdit";
@@ -21,7 +21,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Success from "./pages/Success";
 
 function App() {
-  const user = false;
+  const user=useSelector(state=>state.user.currentUser)
   return (
     <>
       <BrowserRouter>
@@ -34,7 +34,7 @@ function App() {
           <Route path="/order" element={user ? <Order /> : <Login />} />
           {/* login register pages */}
 
-          <Route path="/success" element={<Success />} />
+          <Route exact path="/success" element={<Success />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget" element={<ForgetPassword />} />

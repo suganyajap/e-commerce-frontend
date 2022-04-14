@@ -101,7 +101,7 @@ export default function AdminProductAdd() {
     description: YUP.string().required("Please Enter description"),
     rating: YUP.number().required("Please Enter rating").min(1).max(5),
     product_type: YUP.string().required("Please Enter Product type"),
-    product_colors: YUP.string(),
+     product_colors: YUP.string(),
   });
 
   const handleImage = (product) => {
@@ -195,7 +195,7 @@ export default function AdminProductAdd() {
                   description: "",
                   rating: 0,
                   product_type: "",
-                  product_colors: "",
+                   product_colors: "",
                 }}
                 validationSchema={signInSchema}
                 onSubmit={async (values, { resetForm }) => {
@@ -321,7 +321,7 @@ export default function AdminProductAdd() {
                           <ErrorMessage name="product_type" />
                         </Error>
                       </InputDiv>
-                      <InputDiv className="form-group">
+                       <InputDiv className="form-group">
                         <Label>Product Colors</Label>
                         <Input
                           type="text"
@@ -333,7 +333,7 @@ export default function AdminProductAdd() {
                         <Error>
                           <ErrorMessage name="product_colors" />
                         </Error>
-                      </InputDiv>
+                      </InputDiv> 
                       <div
                         style={{ display: "flex", justifyContent: "center" }}
                       >

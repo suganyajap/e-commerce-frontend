@@ -137,6 +137,7 @@ const Navbar = () => {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="search..."
           />
+          
           {search.length > 1 ? (
             <Link to={`/products/name/${search.toLocaleLowerCase()}`}>
               <SearchIcon

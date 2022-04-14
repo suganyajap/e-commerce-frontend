@@ -10,7 +10,8 @@ import * as YUP from "yup";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import { large, small } from "../responsive";
-import { publicRequest } from "../axiosMethod";
+// import { publicRequest } from "../axiosMethod";
+import axios from 'axios';
 
 //styled comp
 const Maincontainer = styled.div`
@@ -72,7 +73,7 @@ const  AdminUserEdit = () => {
 
   const getUser = async () => {
     try {
-      const res = await publicRequest.get(`/users/find/${params.id}`, {
+      const res = await axios.get(`https://my-e-commerce-node.herokuapp.com/users/find/${params.id}`, {
         headers: {
           token: Puser.currentUser.token,
         },
@@ -125,8 +126,8 @@ const  AdminUserEdit = () => {
                         console.log(values);
 
                     try {
-                      const res = await publicRequest.put(
-                        `/users/${params.id}`,
+                      const res = await axios.put(
+                        `https://my-e-commerce-node.herokuapp.com/users/${params.id}`,
                         values,
                         {
                           headers: {
@@ -144,7 +145,7 @@ const  AdminUserEdit = () => {
                           setInfo("oops something went wrong!")
                       }
                   }}>
-                  {()=>{
+                  {(handleSubmit)=>{
                       return (
                           
                       <Form>

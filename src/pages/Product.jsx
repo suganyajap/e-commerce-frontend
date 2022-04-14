@@ -49,24 +49,7 @@ const ProductName = styled.div``;
 const ProductBrand = styled.div``;
 const ProductPrice = styled.div``;
 const ProductDesc = styled.div``;
-const ShadesContainer = styled.div``;
-const Shades = styled.div`
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-`;
-const ShadeSingle = styled.div`
-  height: 1.5rem;
-  width: 1.5rem;
-  background-color: ${(props) => props.hexValue};
-  border-radius: 50%;
-  border: 1px solid black;
-  cursor: pointer;
-  padding: 2px;
-  transform: ${(props) =>
-    props.shade === props.hexValue ? "scale(1.3)" : " "};
-  border-radius: ${(props) => (props.shade === props.hexValue ? "10%" : " ")};
-`;
+
 const CartContainer = styled.div`
   display: flex;
   justify-content: space-around;
@@ -119,9 +102,9 @@ const Product = () => {
   let [product, setProduct] = useState({});
   console.log("product details", product);
   const [loading, setLoading] = useState(true);
-  let [shadeIn, setShade] = React.useState("");
+  // let [shadeIn, setShade] = React.useState("");
   let [quantity, setQuantity] = React.useState(1);
-  console.log(id);
+ console.log(id);
   const dispatch = useDispatch();
   const [alert, setAlert] = useState(false);
   const [error, setError] = useState(false);
@@ -143,10 +126,7 @@ const Product = () => {
     getProduct(id);
   }, [id]);
 
-  //handleshade
-  const handleShade = (value) => {
-    setShade(value);
-  };
+  
 
   //inc or dec
   const handleQuantity = (value) => {
@@ -162,22 +142,14 @@ const Product = () => {
   //add cart
   const handleCart = () => {
     console.log(product);
-    let product_colors = shadeIn;
-    let cartProduct = { ...product, quantity, product_colors };
+
+    let cartProduct = { ...product, quantity};
     console.log(cartProduct);
-    if (product.product_colors.length > 0) {
-      if (cartProduct.product_colors.length > 0) {
+   
         setAlert(true);
         dispatch({ type: "addProduct", payload: cartProduct });
         setError(false);
-      } else {
-        setError(true);
-      }
-    } else {
-      setAlert(true);
-      dispatch({ type: "addProduct", payload: cartProduct });
-      setError(false);
-    }
+    
   };
 
   return (
@@ -242,37 +214,7 @@ const Product = () => {
                 <ProductDesc>
                   <p style={{ color: "grey" }}>{product.description}</p>
                 </ProductDesc>
-                {shades.length > 1 && (
-                  <ShadesContainer>
-                    {product.product_colors &&
-                    product.product_colors.length > 0 ? (
-                      <>
-                        <h5>Choose Shades</h5>
-                        <Shades>
-                          {product.product_colors.map((shade, index) => {
-                            return (
-                              <ShadeSingle
-                                key={index}
-                                hexValue={shade.hex_value}
-                                shade={shadeIn}
-                                onClick={() => {
-                                  handleShade(shade.hex_value);
-                                }}
-                              ></ShadeSingle>
-                            );
-                          })}
-                        </Shades>
-                        {error && (
-                          <p style={{ color: "red", marginTop: "5px" }}>
-                            Please choose one
-                          </p>
-                        )}
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </ShadesContainer>
-                )}
+                
                 <CartContainer>
                   <QuantityContainer>
                     <Button
