@@ -57,9 +57,7 @@ const Para = styled.p`
   display: inline-block;
   color: #e46acf;
 `;
-const Forget = styled.div`
-  text-align: end;
-`;
+
 const Button = styled.button`
   border: none;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
@@ -167,14 +165,7 @@ const Login = () => {
                       <ErrorMessage name="password" />
                     </Error>
                   </div>
-                  <Forget className="text-end">
-                    <Link
-                      to="/forget"
-                      style={{ textDecoration: "none", color: "inherit" }}
-                    >
-                      <Para>forget Password?</Para>
-                    </Link>
-                  </Forget>
+                  
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     {loading && (
                       <>
